@@ -4,10 +4,18 @@ const sequelize = require('../config/connection.js');
 
 class Category extends Model {}
 
+    // define columns
 Category.init(
   {
-    // define columns
-  },
+/*
+    category_name: {
+      // prevents duplicate CATEGORY NAME in DB
+      type: DataTypes.STRING,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true
+    },
+  },*/
   {
     sequelize,
     timestamps: false,
