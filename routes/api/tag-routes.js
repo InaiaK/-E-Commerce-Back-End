@@ -21,7 +21,7 @@ router.get('/:id', async (req, res) => {
   try {
     const tagData = await Tag.findByPk(req.params.id, {
     
-      include: [{ model: Tag, through: Product, as: 'product_tag' }]
+      include: [{ model: Product, through: ProductTag}]
     });
 
     if (!tagData) {
@@ -31,6 +31,7 @@ router.get('/:id', async (req, res) => {
 
     res.status(200).json(tagData);
   } catch (err) {
+    console.log(err,"ERROR")
     res.status(500).json(err);
   }
 });
@@ -42,16 +43,8 @@ router.post('/', async(req, res) => {
   Tag.create(req.body)
   .then((tag) => {
 
-    if (req.body.tagIds.length) {
-      const TagNameArr = req.body.tagIds.map((tag_name) => {
-        return {
-          tag_name: product.id,
-          tag_name,
-        };
-      });
-      return Tag.bulkCreate(TagNameArr);
-    }
-    // if no  tags, just respond
+    
+      // if no  tags, just respond
     res.status(200).json(tag);
   })
   .then((productTagIds) => res.status(200).json(Tag))
@@ -64,8 +57,7 @@ router.post('/', async(req, res) => {
 
 
 
-router.put('/:id', async (req, res) => {
-  // update a tag's name by its `id` value
+
 
   router.put("/:id", async (req, res) => {
     try {
@@ -83,7 +75,6 @@ router.put('/:id', async (req, res) => {
       res.status(400).json(error);
     }
   });
-});
   
 
   
@@ -92,7 +83,7 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   // delete on tag by its `id` value
   try {
-    const tagData = await Tag_name.destroy({
+    const tagData = await Tag.destroy({
       where: {
         id: req.params.id
       }

@@ -7,7 +7,7 @@ router.get('/', async (req, res) => {
   // find all categories
   // be sure to include its associated Products
   try {
-    const categorytData = await Category.findAll({
+    const categoryData = await Category.findAll({
       include: [{ model: Product }],
     });
 
@@ -16,8 +16,11 @@ router.get('/', async (req, res) => {
       return;
     }
 
-    res.status(200).json(CategoryData);
+    console.log(categoryData);
+
+    res.status(200).json(categoryData);
   } catch (err) {
+    console.log(err,"ERR");
     res.status(500).json(err);
   }
 });
@@ -62,33 +65,8 @@ router.put('/:id', (req, res) => {
       id: req.params.id,
     },
   })
-    .then((category) => {
-      // find all associated
-      return Category.findAll({ where: { category_name: req.params.id } });
-    })
-    .then((categoriesname) => {
-      // get list of current categories
-      const Category = category_name.map(({ categoryData }) => category_name);
-      // create filtered list of new category names
-      const newCategoryName = req.body.category_name
-        .filter((tag_id) => !productTagIds.includes(tag_id))
-        .map((tag_id) => {
-          return {
-            product_id: req.params.id,
-            tag_id,
-          };
-        });
-      // figure out which ones to remove
-      const productTagsToRemove = productTags
-        .filter(({ tag_id }) => !req.body.tagIds.includes(tag_id))
-        .map(({ id }) => id);
-
-      // run both actions
-      return Promise.all([
-        ProductTag.destroy({ where: { id: productTagsToRemove } }),
-        ProductTag.bulkCreate(newProductTags),
-      ]);
-    })
+   
+  
     .then((updatedProductTags) => res.json(updatedProductTags))
     .catch((err) => {
       // console.log(err);
