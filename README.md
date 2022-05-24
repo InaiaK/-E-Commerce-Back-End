@@ -7,7 +7,7 @@ E-commerce backend is a demonstration  of RESTful APIs to mock functionality of 
  The capabilities of the app can be tested using an API testing client such as Insomnia.
  
 # Images
-![}(images\insomnia.png)
+![}(images/insomnia.png)
 
 
 ## Video
