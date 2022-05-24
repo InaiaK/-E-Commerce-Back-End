@@ -2,7 +2,7 @@
 
 
  ## Description
- E-commerce platforms like Shopify and WooCommerce provide a suite of services to businesses of all sizes. 
+E-commerce backend is a demonstration  of RESTful APIs to mock functionality of a online shopping site back end.The Sequelize database operations are initiated by submitting a get, push, put, or delete request to the appropriate API routes.
 
  The capabilities of the app can be tested using an API testing client such as Insomnia.
 
